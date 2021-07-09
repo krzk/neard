@@ -15,6 +15,9 @@
  *
  */
 
+#ifndef __SEEL_SEEL_H
+#define __SEEL_SEEL_H
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <sys/socket.h>
@@ -84,3 +87,5 @@ bool __seel_ace_apdu_allowed(struct seel_channel *channel, uint8_t *app_hash,
 			     uint8_t *apdu, size_t apdu_len);
 int __seel_ace_init(void);
 void __seel_ace_cleanup(void);
+
+#endif /* __SEEL_SEEL_H */
