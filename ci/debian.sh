@@ -11,6 +11,15 @@ set -e -E
 
 apt update
 
+# Some distros (e.g. Ubuntu Hirsute) might pull tzdata which asks questions
+export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+
+# Choose some random place in Europe
+echo "tzdata tzdata/Areas select Europe
+tzdata tzdata/Zones/Europe select Berlin
+" > /tmp/tzdata-preseed.txt
+debconf-set-selections /tmp/tzdata-preseed.txt
+
 apt install -y --no-install-recommends \
 	autoconf \
 	automake \

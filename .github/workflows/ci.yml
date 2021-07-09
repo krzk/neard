@@ -16,10 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Does pass installation - hangs on tzdata configuration
-          # - container: "ubuntu:hirsute"
-          #   env:
-          #     CC: gcc
+          - container: "ubuntu:hirsute"
+            env:
+              CC: gcc
 
           - container: "ubuntu:focal"
             env:
