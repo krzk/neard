@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: GPL-2.0
 #
 
-set -e -E
+set -eEx
 
 apt update
 
