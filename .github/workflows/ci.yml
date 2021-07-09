@@ -60,8 +60,6 @@ jobs:
         lsb_release -a || true
         uname -a
         cat /proc/cmdline
-        gcc --version || true
-        clang --version || true
 
     - name: Configure
       run: ./bootstrap-configure
