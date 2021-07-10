@@ -1,10 +1,9 @@
 #!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
 #
 # Copyright (c) 2021 Canonical Ltd.
 # Author: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 #                             <krzk@kernel.org>
-#
-# SPDX-License-Identifier: GPL-2.0
 #
 
 set -eEx
