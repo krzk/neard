@@ -11,6 +11,31 @@ Background
 Core
 ====
 
+- Add more GCC/clang warnings and fix them.
+  Priority: High
+  Complexity: C4
+
+- Fix UTF-8 and UTF-16 parsing in ndef.
+  Priority: Medium
+  Complexity: C2
+
+- Add static analysis tools under Continuous Integration (and fix pointed out
+  issues).
+  Priority: Medium
+  Complexity: C4
+
+  See:
+  https://github.com/krzk/neard/security/code-scanning
+  https://github.com/marketplace/actions/run-static-analysis-for-c-project
+
+- Add code linter/quality checks under Continuous Integration.
+  Priority: Low
+  Complexity: C4
+
+  See:
+  https://github.com/marketplace/actions/c-code-linter-clang-tidy-and-cppcheck
+  https://github.com/marketplace/actions/run-static-analysis-for-c-project
+
 - Card Emulation Mode
 
   Priority: Low
