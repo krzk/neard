@@ -251,9 +251,9 @@ static void test_ndef_text_encoding(uint8_t *text, size_t len, const char *encod
 	g_assert(record->header->me == 1);
 
 	g_assert(record->text);
-	g_assert(strcmp(record->text->data, expected) == 0);
-	g_assert(strcmp(record->text->encoding, encoding) == 0);
-	g_assert(strcmp(record->text->language_code, "en-US") == 0);
+	g_assert_cmpstr(record->text->data, ==, expected);
+	g_assert_cmpstr(record->text->encoding, ==, encoding);
+	g_assert_cmpstr(record->text->language_code, ==, "en-US");
 
 	if (g_test_verbose()) {
 		g_print("NDEF Text data: %s\n", record->text->data);
@@ -362,9 +362,9 @@ static void test_ndef_title_sp(void)
 		g_print("NDEF SP URI field: %.*s\n", uri->field_length,
 							(char *) uri->field);
 
-	g_assert(strcmp(text->data, "Intel") == 0);
-	g_assert(strcmp(text->encoding, "UTF-8") == 0);
-	g_assert(strcmp(text->language_code, "en") == 0);
+	g_assert_cmpstr(text->data, ==, "Intel");
+	g_assert_cmpstr(text->encoding, ==, "UTF-8");
+	g_assert_cmpstr(text->language_code, ==, "en");
 
 	if (g_test_verbose()) {
 		g_print("NDEF SP Title data: %s\n", text->data);
@@ -402,7 +402,7 @@ static void test_ndef_aar(void)
 
 	g_assert(record->aar);
 	g_assert(record->aar->package);
-	g_assert(strcmp((char *) record->aar->package, "com.example.aar") == 0);
+	g_assert_cmpstr((char *) record->aar->package, ==, "com.example.aar");
 
 
 	if (g_test_verbose())
@@ -444,7 +444,7 @@ static void test_ndef_ho_hs_bt(void)
 
 	records = g_list_next(records);
 	record = records->data;
-	g_assert(strcmp(record->type, BT_MIME_STRING_2_1) == 0);
+	g_assert_cmpstr(record->type, ==, BT_MIME_STRING_2_1);
 }
 
 int main(int argc, char **argv)
