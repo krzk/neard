@@ -5,7 +5,7 @@
 #                             <krzk@kernel.org>
 #
 name: "CppCheck"
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   analyze:
@@ -15,14 +15,20 @@ jobs:
       actions: read
       contents: read
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #GITHUB_EVENT_PATH:
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        path: src
 
     - name: Install additional packages
       run: |
-        sudo ./ci/ubuntu.sh
-        sudo apt-get install -y cppcheck flawfinder
+        sudo apt-get install -y curl clang-tidy jq clang cppcheck clang-format flawfinder
+
 
     # - name: 'Analysis with: Cppcheck'
     #   run: cppcheck --output-file=report-cppcheck.txt ./
@@ -31,4 +37,7 @@ jobs:
     #  run: flawfinder --columns --context --singleline . > report-flawfinder.txt
 
     - name: Analysis
-      run: ci/static-analysis.sh
+      run: src/ci/static-analysis.sh
+
+    #- name: C++ code check using clang/cppcheck/flawfinder
+    #  uses: Tlazypanda/cpp-clang-check@0.13
