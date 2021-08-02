@@ -5,7 +5,7 @@
 #                             <krzk@kernel.org>
 #
 name: "CppCheck"
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   analyze:
