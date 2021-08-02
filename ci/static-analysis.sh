@@ -35,8 +35,12 @@ done
 
 echo "Files downloaded!"
 echo "Performing checkup:"
-clang-tidy --version
-clang-tidy *.cpp -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-* > clang-tidy-report.txt
+if [ "`ls *.cpp *.hpp *.c *.h`" != "" ]; then
+	clang-tidy --version
+	clang-tidy *.cpp *.hpp *.c *.h -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-* > clang-tidy-report.txt
+else
+	echo "No source files for clang-tidy"
+fi
 
 cppcheck -iclang-format-report.txt -iclang-tidy-report.txt --enable=all --std=c++11 --language=c++ --output-file=cppcheck-report.txt *
 
