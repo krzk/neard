@@ -38,17 +38,18 @@ echo "Performing checkup:"
 if [ "`ls *.cpp *.hpp *.c *.h`" != "" ]; then
 	clang-tidy --version
 	clang-tidy *.cpp *.hpp *.c *.h -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-* > clang-tidy-report.txt
+	PAYLOAD_TIDY=`cat clang-tidy-report.txt`
 else
 	echo "No source files for clang-tidy"
+	PAYLOAD_TIDY=""
 fi
 
 cppcheck -iclang-format-report.txt -iclang-tidy-report.txt --enable=all --std=c++11 --language=c++ --output-file=cppcheck-report.txt *
+PAYLOAD_CPPCHECK=`cat cppcheck-report.txt`
 
 flawfinder --columns --context --singleline . > flawfinder-report.txt
-
-PAYLOAD_TIDY=`cat clang-tidy-report.txt`
-PAYLOAD_CPPCHECK=`cat cppcheck-report.txt`
 PAYLOAD_FLAWFINDER=`cat flawfinder-report.txt`
+
 COMMENTS_URL=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.comments_url)
 
 echo $COMMENTS_URL
