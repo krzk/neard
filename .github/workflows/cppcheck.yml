@@ -36,6 +36,13 @@ jobs:
     # - name: 'Analysis with: flawfinder'
     #  run: flawfinder --columns --context --singleline . > report-flawfinder.txt
 
+    - name: A1
+      run: pwd
+    - name: A2
+      run: ls -la ./
+    - name: A3
+      run: ls -al src/
+
     - name: Analysis
       run: src/ci/static-analysis.sh
 
