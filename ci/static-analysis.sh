@@ -15,9 +15,6 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 	exit 1
 fi
 
-echo $GITHUB_EVENT_PATH
-cat $GITHUB_EVENT_PATH
-
 FILES_LINK=`jq -r '.pull_request._links.self.href' "$GITHUB_EVENT_PATH"`/files
 echo "Files = $FILES_LINK"
 
