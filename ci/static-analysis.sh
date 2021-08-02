@@ -32,8 +32,8 @@ mkdir files
 cd files
 for i in "${URLS[@]}"
 do
-   echo "Downloading $i"
-   curl -LOk --remote-name $i
+	echo "Downloading $i"
+	curl -LOk --remote-name $i
 done
 
 echo "Files downloaded!"
