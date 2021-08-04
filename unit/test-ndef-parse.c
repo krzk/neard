@@ -43,6 +43,14 @@ static uint8_t text_utf8[] = {0xd1, 0x1, 0x13, 0x54, 0x5, 0x65, 0x6e, 0x2d,
 			0x55, 0x53, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0xc5,
 			0xbc, 0xc3, 0xb3, 0xc5, 0x82, 0x77};
 
+/* 'hello żółw' - UTF-16 - en-US Text NDEF */
+static uint8_t text_utf16[] = {0xd1, 0x1, 0x1a, 0x54, 0x85,
+			/* en-US */
+			0x65, 0x6e, 0x2d, 0x55, 0x53,
+			/* hello żółw */
+			0x68, 0x00, 0x65, 0x00, 0x6c, 0x00, 0x6c, 0x00, 0x6f, 0x00,
+			0x20, 0x00, 0x7c, 0x01, 0xf3, 0x00, 0x42, 0x01, 0x77, 0x00};
+
 /* 'hello żółw' - UTF-16 - en-US Text NDEF UTF-16 malformed*/
 static uint8_t text_utf16_invalid[] = {0xd1, 0x1, 0x19, 0x54, 0x85,
 			/* en-US */
@@ -109,12 +117,12 @@ static void test_ndef_uri(void)
 	near_ndef_records_free(records);
 }
 
-static void test_ndef_text(void)
+static void test_ndef_text_encoding(uint8_t *text, size_t len, const char *encoding, const char *expected)
 {
 	GList *records;
 	struct near_ndef_record *record;
 
-	records = near_ndef_parse_msg(text_utf8, sizeof(text_utf8), NULL);
+	records = near_ndef_parse_msg(text, len, NULL);
 
 	g_assert(records);
 	g_assert_cmpuint(g_list_length(records), ==, 1);
@@ -126,8 +134,8 @@ static void test_ndef_text(void)
 	g_assert_cmpuint(record->header->me, ==, 1);
 
 	g_assert(record->text);
-	g_assert_cmpstr(record->text->data, ==, "hello żółw");
-	g_assert_cmpstr(record->text->encoding,==,  "UTF-8");
+	g_assert_cmpstr(record->text->data, ==, expected);
+	g_assert_cmpstr(record->text->encoding,==, encoding);
 	g_assert_cmpstr(record->text->language_code, ==, "en-US");
 
 	if (g_test_verbose()) {
@@ -138,6 +146,12 @@ static void test_ndef_text(void)
 	}
 
 	near_ndef_records_free(records);
+}
+
+static void test_ndef_text(void)
+{
+	test_ndef_text_encoding(text_utf8, sizeof(text_utf8), "UTF-8", "hello żółw");
+	test_ndef_text_encoding(text_utf16, sizeof(text_utf16), "UTF-16", "hello żółw");
 }
 
 static void test_ndef_text_invalid_utf16(void)
