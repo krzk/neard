@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <sys/socket.h>
 #include <linux/nfc.h>
+#include <linux/version.h>
 
 #include <netlink/netlink.h>
 #include <netlink/genl/genl.h>
@@ -331,6 +332,7 @@ nla_put_failure:
 	return err;
 }
 
+#if LINUX_VERSION_CODE>=KERNEL_VERSION(4, 15, 0)
 int __near_netlink_deactivate_target(uint32_t idx, uint32_t target_idx)
 {
 	struct nl_msg *msg;
@@ -363,6 +365,12 @@ nla_put_failure:
 
 	return err;
 }
+#else
+int __near_netlink_deactivate_target(uint32_t idx, uint32_t target_idx)
+{
+	return -EINVAL;
+}
+#endif
 
 int __near_netlink_dep_link_up(uint32_t idx, uint32_t target_idx,
 				uint8_t comm_mode, uint8_t rf_mode)
