@@ -28,10 +28,11 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <linux/nfc.h>
 #include <glib.h>
+
 #include <netlink/genl/genl.h>
 
+#include <near/nfc_copy.h>
 
 #include "nfctool.h"
 #include "adapter.h"

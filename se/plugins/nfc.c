@@ -26,7 +26,6 @@
 
 #include <sys/socket.h>
 #include <linux/socket.h>
-#include <linux/nfc.h>
 
 #include <glib.h>
 
@@ -37,6 +36,7 @@
 
 #include <near/log.h>
 #include <near/plugin.h>
+#include <near/nfc_copy.h>
 
 #include "../manager.h"
 #include "../driver.h"

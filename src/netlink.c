@@ -28,8 +28,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <sys/socket.h>
-#include <linux/nfc.h>
 #include <linux/version.h>
 
 #include <netlink/netlink.h>
