@@ -28,8 +28,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <sys/socket.h>
-
-#include <near/nfc_copy.h>
+#include <linux/nfc.h>
 
 #include <near/plugin.h>
 #include <near/log.h>
